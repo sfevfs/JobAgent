@@ -1,0 +1,12 @@
+eligibility:
+  candidate:
+    expected_graduation: "2030-06"
+    degree: "硕士"
+    degree_type: "合成示例"
+    study_mode: "全日制"
+    internship_available: true
+    language_credentials: []
+  statuses:
+    - eligible
+    - uncertain
+    - ineligible

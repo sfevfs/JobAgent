@@ -1,0 +1,26 @@
+eligibility:
+  candidate:
+    expected_graduation: null
+    degree: null
+    degree_type: null
+    study_mode: null
+    internship_available: null
+    language_credentials: []
+
+  statuses:
+    - eligible
+    - uncertain
+    - ineligible
+
+  hard_ineligible:
+    explicit_degree_exclusion: true
+    explicit_graduation_window_mismatch: true
+    explicit_work_authorization_mismatch: true
+    explicit_required_credential_mismatch: true
+    experienced_hire_only_when_candidate_has_no_required_experience: true
+
+  guards:
+    - "Missing information stays unknown."
+    - "Eligibility never rewrites the technical score."
+    - "Interview time, salary, start date and location changes require user confirmation."
+

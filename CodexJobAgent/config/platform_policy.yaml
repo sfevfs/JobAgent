@@ -1,0 +1,29 @@
+defaults:
+  public_read: true
+  authenticated_read: false
+  mobile_read: false
+  mobile_send: false
+  auto_apply: false
+  auto_message: false
+  stop_on_login_or_verification: true
+
+platforms:
+  BOSS:
+    public_read: true
+    mobile_read: false
+    mobile_send: false
+    auto_apply: false
+  Zhaopin:
+    public_read: true
+    mobile_read: false
+    mobile_send: false
+    auto_apply: false
+  51job:
+    public_read: true
+    mobile_read: false
+    mobile_send: false
+    auto_apply: false
+
+mode: ASSIST
+rule: "The user must explicitly approve each concrete application or listed batch."
+

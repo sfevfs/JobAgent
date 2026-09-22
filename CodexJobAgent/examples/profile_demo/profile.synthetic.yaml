@@ -1,0 +1,23 @@
+metadata:
+  onboarding_complete: true
+
+target_roles:
+  P0: ["机器学习工程师"]
+  P1: ["AI 工程师"]
+  P2: []
+
+company_preferences:
+  preferred: []
+  excluded: []
+
+soft_gap:
+  engineering: ["SQL", "Docker"]
+
+keywords:
+  medical_exploratory:
+    - registration
+    - reconstruction
+    - detection
+    - classification
+    - enhancement
+    - denoising

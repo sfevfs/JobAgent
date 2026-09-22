@@ -1,0 +1,14 @@
+{
+  "job_id": "synthetic-general-ai-001",
+  "platform": "synthetic",
+  "platform_job_id": "synthetic-ai-001",
+  "company": "示例人工智能公司",
+  "job_title": "机器学习工程师",
+  "city": "示例城市",
+  "salary": "18-28K",
+  "job_type": "campus_fulltime",
+  "graduation_year": "2030",
+  "jd_text": "合成测试数据：负责机器学习模型设计、训练、评估和部署验证，要求 Python 与至少一种深度学习框架。",
+  "url": "https://example.invalid/jobs/synthetic-general-ai-001",
+  "source": "synthetic_fixture"
+}

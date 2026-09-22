@@ -1,0 +1,59 @@
+version: 1
+auto_send_enabled: false
+
+risk_levels:
+  L0:
+    description: 系统通知，不需要回复。
+    examples:
+      - 系统通知
+    action: no_reply
+    requires_user_confirmation: false
+    auto_send: false
+
+  L1:
+    description: 普通问候、询问是否方便沟通、询问是否还在看机会。
+    examples:
+      - 普通问候
+      - 是否方便沟通
+      - 是否还在看机会
+    action: draft_only
+    requires_user_confirmation: false
+    auto_send: false
+
+  L2:
+    description: 毕业时间、城市意愿、岗位方向、是否可以到岗等信息。
+    examples:
+      - 毕业时间
+      - 城市意愿
+      - 岗位方向
+      - 是否可以到岗
+    action: require_user_confirmation
+    requires_user_confirmation: true
+    auto_send: false
+
+  L3:
+    description: 薪资、面试时间、Offer、签约、调岗、工作地点变更、入职日期。
+    examples:
+      - 薪资
+      - 面试时间
+      - Offer
+      - 签约
+      - 调岗
+      - 工作地点变更
+      - 入职日期
+    action: require_user_confirmation
+    requires_user_confirmation: true
+    auto_send: false
+
+  L4:
+    description: 身份证、银行卡、验证码、密码、账号等敏感信息。
+    examples:
+      - 身份证
+      - 银行卡
+      - 验证码
+      - 密码
+      - 账号
+    action: block_sensitive_information
+    requires_user_confirmation: false
+    manual_override_allowed: false
+    auto_send: false

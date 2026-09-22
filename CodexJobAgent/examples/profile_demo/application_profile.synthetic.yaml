@@ -1,0 +1,16 @@
+metadata:
+  onboarding_complete: true
+
+confirmed_facts_only: true
+candidate:
+  name: "示例候选人"
+  phone: null
+  email: null
+  current_city: "示例城市"
+  highest_degree: "硕士"
+  major: "计算机相关专业（合成示例）"
+  expected_graduation: "2030-06"
+
+sensitive_fields:
+  status: blocked
+  rule: "Never store or send identity-document numbers, bank details, passwords or verification codes."

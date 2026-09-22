@@ -1,0 +1,41 @@
+metadata:
+  onboarding_complete: false
+  confirmed_by_user: false
+  confirmed_at: null
+  source_note: "Only facts confirmed by the user may be stored here."
+
+candidate:
+  name: null
+  degree: null
+  degree_type: null
+  study_mode: null
+  major: null
+  expected_graduation: null
+  job_search_status:
+    campus_fulltime: null
+    experienced_fulltime: null
+    internship: null
+
+education: {}
+employment: {}
+internships: {}
+
+languages: {}
+
+skills:
+  catalog: {}
+  programming: {}
+  engineering: {}
+  data_and_image_tools: {}
+  deep_learning_models: {}
+  deep_learning_workflow: {}
+  domains: {}
+
+projects: {}
+publications: {}
+competitions: {}
+certifications: {}
+
+forbidden_claims:
+  - "Do not claim any fact that is absent from this file."
+

@@ -1,0 +1,14 @@
+{
+  "job_id": "synthetic-medical-001",
+  "platform": "synthetic",
+  "platform_job_id": "synthetic-medcv-001",
+  "company": "示例医疗影像公司",
+  "job_title": "医学图像算法工程师",
+  "city": "示例城市",
+  "salary": "20-32K",
+  "job_type": "campus_fulltime",
+  "graduation_year": "2030",
+  "jd_text": "合成测试数据：负责 CT 或 MRI 图像分割模型的训练、验证与分析，使用 Python、PyTorch 和 OpenCV。",
+  "url": "https://example.invalid/jobs/synthetic-medical-001",
+  "source": "synthetic_fixture"
+}

@@ -1,0 +1,14 @@
+{
+  "job_id": "synthetic-communication-001",
+  "platform": "synthetic",
+  "platform_job_id": "synthetic-comm-001",
+  "company": "示例通信科技公司",
+  "job_title": "无线算法工程师",
+  "city": "示例城市",
+  "salary": "20-30K",
+  "job_type": "campus_fulltime",
+  "graduation_year": "2030",
+  "jd_text": "合成测试数据：参与无线通信算法研究与仿真，涉及 MIMO、信道估计和 Python。硕士及以上，校园招聘。",
+  "url": "https://example.invalid/jobs/synthetic-communication-001",
+  "source": "synthetic_fixture"
+}

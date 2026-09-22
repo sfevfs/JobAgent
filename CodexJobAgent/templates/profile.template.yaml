@@ -1,0 +1,45 @@
+metadata:
+  onboarding_complete: false
+
+job_search:
+  primary: []
+  secondary: []
+
+location:
+  preferred: []
+  acceptable: []
+  remote: unknown
+  relocation: unknown
+
+target_roles:
+  P0: []
+  P1: []
+  P2: []
+
+company_preferences:
+  preferred: []
+  excluded: []
+
+salary:
+  currency: CNY
+  expected_range: null
+  hard_reject_by_salary: false
+
+soft_gap:
+  engineering: []
+
+keywords:
+  medical_exploratory:
+    - registration
+    - reconstruction
+    - detection
+    - classification
+    - enhancement
+    - denoising
+
+hard_reject:
+  job_content:
+    - "paid training"
+    - "deposit required"
+    - "recruitment fee"
+

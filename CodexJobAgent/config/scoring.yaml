@@ -1,0 +1,32 @@
+scoring:
+  dimensions:
+    common_technical_core:
+      weight: 25
+    track_domain_match:
+      weight: 25
+    project_evidence:
+      weight: 20
+    education_background_fit:
+      weight: 15
+    engineering_tools:
+      weight: 10
+    technical_role_relevance:
+      weight: 5
+  total: 100
+
+final_score_rule:
+  method: best_relevant_track
+  rules:
+    - "Select the most relevant configured track; do not average unrelated tracks."
+    - "Technical score, eligibility and personal preference remain separate."
+    - "Only confirmed private resume facts may support a match."
+
+grades:
+  S: {min: 85, max: 100, decision: selected}
+  A: {min: 75, max: 84, decision: selected}
+  B: {min: 65, max: 74, decision: selected}
+  C: {min: 55, max: 64, decision: review}
+  D: {min: 0, max: 54, decision: rejected}
+
+explanation_required: true
+

@@ -1,0 +1,6 @@
+confirmed_by_user: true
+confirmed_at: "2030-01-01T00:00:00+00:00"
+resume_source: "synthetic_fixture"
+profile_schema_version: 1
+notes:
+  - "Synthetic fixture only; never use for a real application."

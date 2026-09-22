@@ -1,0 +1,31 @@
+metadata:
+  onboarding_complete: true
+  confirmed_by_user: true
+  source_note: "Synthetic fixture only; never use for a real application."
+
+candidate:
+  name: "示例候选人"
+  degree: "硕士"
+  degree_type: "合成示例"
+  study_mode: "全日制"
+  major: "计算机相关专业（合成示例）"
+  expected_graduation: "2030-06"
+  fulltime_experience_years: 0
+
+skills:
+  catalog:
+    Python: {level: proficient, evidence: ["合成项目"]}
+    PyTorch: {level: familiar, evidence: ["合成项目"]}
+    Git: {level: familiar, evidence: ["合成项目"]}
+  domains:
+    Machine Learning: {level: familiar, evidence: ["合成项目"]}
+    Deep Learning: {level: familiar, evidence: ["合成项目"]}
+
+projects:
+  synthetic_ml_project:
+    summary: "Synthetic fixture for validating the matcher."
+    keywords: ["machine learning", "Python", "PyTorch"]
+    responsibilities: ["modeling", "evaluation", "documentation"]
+
+forbidden_claims:
+  - "This entire file is synthetic and must never be used for a real application."

@@ -1,0 +1,17 @@
+metadata:
+  onboarding_complete: false
+
+confirmed_facts_only: true
+candidate:
+  name: null
+  phone: null
+  email: null
+  current_city: null
+  highest_degree: null
+  major: null
+  expected_graduation: null
+
+sensitive_fields:
+  status: blocked
+  rule: "Never store or send identity-document numbers, bank details, passwords or verification codes."
+
