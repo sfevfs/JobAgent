@@ -410,23 +410,6 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap.ps1 -IncludeMobile 
 
 并检查 `.local/`、`.venv/`、运行时数据目录是否错误进入分享版本。
 
-## GitHub 发布前检查
-
-完整清单见 [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)，首次发布步骤见 [docs/GITHUB_PUBLISH.md](docs/GITHUB_PUBLISH.md)。最少执行：
-
-```powershell
-python scripts/privacy_audit.py
-python -m compileall scripts
-
-git status
-git diff --cached
-
-git config user.name
-git config user.email
-```
-
-如果不希望私人邮箱出现在 Git 历史中，请在 GitHub 中启用邮箱隐私设置，并配置 GitHub 提供的 `noreply` 提交邮箱。
-
 ## GitHub Actions
 
 `.github/workflows/ci.yml` 在 push 和 pull request 时执行基础检查：
@@ -446,20 +429,5 @@ CI 不读取 `.local/`，也不需要真实简历或招聘平台凭据。
 - 平台 DOM、App UI 和风控机制会变化，手机辅助能力不能保证长期稳定。
 - 自动化动作越接近真实提交，对人工确认、审计和页面复核的要求越高。
 
-## 第三方代码
-
-可选 Android 模块位于：
-
-```text
-third_party/mobile-use-mcp/
-```
-
-其原作者、许可证与派生归属信息见：
-
-- `third_party/mobile-use-mcp/LICENSE`
-- `third_party/mobile-use-mcp/NOTICE`
-- `third_party/mobile-use-mcp/README.md`
-
-请不要删除这些文件。
 
 
