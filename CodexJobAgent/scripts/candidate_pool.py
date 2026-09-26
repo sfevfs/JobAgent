@@ -19,6 +19,7 @@ from typing import Any
 
 from init_db import DATABASE_PATH, initialize_database
 from job_matcher import JobMatcher
+from source_quality import assess_source_quality
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +63,7 @@ def normalize_result(job: dict[str, Any], result: dict[str, Any]) -> dict[str, A
             "city": job.get("city"),
             "salary": job.get("salary"),
             "job_type": job.get("job_type"),
+            "jd_text": job.get("jd_text"),
             "graduation_year": job.get("graduation_year"),
             "url": job.get("url"),
             "source": job.get("source"),
@@ -74,6 +76,11 @@ def normalize_result(job: dict[str, Any], result: dict[str, Any]) -> dict[str, A
             "canonical_job_id": job.get("canonical_job_id"),
             "same_job_group_id": job.get("same_job_group_id"),
             "discovered_platforms": job.get("discovered_platforms") or [job.get("platform")],
+            "discovery_methods": job.get("discovery_methods") or ([job["discovery_method"]] if job.get("discovery_method") else []),
+            "product_scenario_ids": job.get("product_scenario_ids") or ([job["product_scenario_id"]] if job.get("product_scenario_id") else []),
+            "search_queries": job.get("search_queries") or ([job["search_query"]] if job.get("search_query") else []),
+            "company_product_evidence_urls": job.get("company_product_evidence_urls") or ([job["product_evidence_url"]] if job.get("product_evidence_url") else []),
+            "company_size": job.get("company_size"),
             "duplicate_platform_records": job.get("duplicate_platform_records", []),
             "duplicate_count": job.get("duplicate_count", 0),
             "user_review_status": "pending",
@@ -269,6 +276,7 @@ def build_queue(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
     selected.sort(key=sort_key)
     queue: list[dict[str, Any]] = []
     for number, result in enumerate(selected, 1):
+        source_quality = assess_source_quality(result)
         queue.append(
             {
                 "review_number": number,
@@ -290,8 +298,13 @@ def build_queue(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "project_evidence": result.get("project_evidence", []),
                 "why_worth_reviewing": result.get("final_reason"),
                 "risk_flags": result.get("risk_flags", []),
+                "discovery_methods": result.get("discovery_methods", []),
+                "product_scenario_ids": result.get("product_scenario_ids", []),
+                "company_product_evidence_urls": result.get("company_product_evidence_urls", []),
+                "company_size": result.get("company_size"),
                 "link": result.get("url"),
                 "recommendation": recommendation(result["opportunity_priority"]),
+                "source_quality": source_quality,
                 "user_review_status": "pending",
             }
         )
@@ -335,6 +348,7 @@ def render_pool_report(
         f"- 重复记录：{duplicate_records}；含重复的 canonical 组：{duplicate_groups}。",
         f"- 数据库写入：inserted={db_summary['inserted']}，updated={db_summary['updated']}；所有人工状态保持 pending。",
         f"- 待确认清单：{len(queue)} 个（仅 P0/P1 且 eligible）。",
+        f"- 其中来源需重新核对：{sum(item['source_quality']['needs_source_recheck'] for item in queue)} 个；技术分和优先级不受此标记影响。",
         "",
         "## 平台分布",
         "",
@@ -348,9 +362,9 @@ def render_pool_report(
         "- Eligibility：" + "，".join(f"{key}={eligibility_counts.get(key, 0)}" for key in ("eligible", "uncertain", "ineligible")),
         "- Priority：" + "，".join(f"{key}={priority_counts.get(key, 0)}" for key in ("P0", "P1", "P2", "reject")),
         "",
-        "## 技术方向分布",
+        "## 通信与医学/CV比例",
         "",
-        f"communication_ai={track_counts.get('communication_ai', 0)}，medical_cv={track_counts.get('medical_cv', 0)}，general_ai={track_counts.get('general_ai', 0)}。",
+        f"communication_ai={track_counts.get('communication_ai', 0)}，medical_cv={track_counts.get('medical_cv', 0)}；比例 {track_counts.get('communication_ai', 0)}:{track_counts.get('medical_cv', 0)}。General AI={track_counts.get('general_ai', 0)}。",
         "",
         "## 薪资统计",
         "",
@@ -394,6 +408,7 @@ def render_queue_report(queue: list[dict[str, Any]]) -> str:
         "> 第五阶段人工确认清单。仅包含 `P0/P1 + eligible` 岗位；全部为 pending。查看本清单不等于授权投递。",
         "",
         f"待确认岗位数：**{len(queue)}**。建议每批人工审核 15–25 个，从 P0 开始。",
+        f"来源需重新核对：**{sum(item['source_quality']['needs_source_recheck'] for item in queue)}** 个。",
         "",
     ]
     for item in queue:
@@ -414,6 +429,11 @@ def render_queue_report(queue: list[dict[str, Any]]) -> str:
                 f"Eligibility：`{item['eligibility']}`",
                 f"Opportunity Priority：`{item['opportunity_priority']}`",
                 f"建议：**{item['recommendation']}**",
+                f"来源核验：{'需重新核对原页面' if item['source_quality']['needs_source_recheck'] else '来源信息满足本地检查'}",
+                f"来源检查日期：{item['source_quality']['source_checked_at'] or '未知'}；JD 摘要长度：{item['source_quality']['jd_chars']} 字符",
+                f"来源核验原因：{', '.join(item['source_quality']['reasons']) or '无'}",
+                f"发现路线：{', '.join(item['discovery_methods']) or '历史记录未标记'}；产品场景：{', '.join(item['product_scenario_ids']) or '无'}",
+                f"企业规模：{item['company_size'] or '未知'}；产品证据：{', '.join(item['company_product_evidence_urls']) or '未记录'}",
                 "",
                 "主要匹配：",
             ]

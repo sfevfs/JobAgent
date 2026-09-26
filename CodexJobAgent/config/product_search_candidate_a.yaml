@@ -1,0 +1,97 @@
+version: 1
+candidate: candidate_a
+purpose: "从已确认的研究能力推导可能的产品模块，用于找公司和岗位；不代表已有产品落地经历。"
+search_balance:
+  primary_tracks: [communication_ai, medical_cv]
+  role_queries_per_track: 6
+  product_queries_per_track: 6
+  secondary_general_ai_queries: 2
+  preferred_company_sizes: ["20-99人", "100-499人", "0-20人"]
+  allow_other_company_sizes: true
+  selection_rule: "搜索次数平衡；岗位入池仍由原 Matcher、Eligibility 和来源核验决定，不按路线强制配额。"
+  adaptive_rule: "每完成 8 次主线搜索，按去重后 eligible 且 P0/P1 的有效岗位产出复盘；下一轮岗位名称/产品场景路线可调整到 40/60 至 60/40，每条路线至少保留 40%，不改变两条技术主线权重。"
+  feedback_window_main_searches: 8
+  minimum_verified_jobs_to_shift: 2
+  next_round_main_searches_per_track: 10
+
+company_review:
+  accepted_product_sources: [official_product_page, company_website]
+  preferred_company_sizes: ["20-99人", "100-499人", "0-20人"]
+  rule: "公司规模仅决定查看顺序。产品路线必须记录可核对的产品页面，再到 BOSS 核对该公司具体在招 JD；0-20 人公司同样要核对产品和完整职责。"
+
+scenarios:
+  communication_ai:
+    - id: csi_feedback
+      product_area: "基站与终端的 CSI 反馈压缩和重建"
+      company_query: "5G基站 CSI反馈 无线算法"
+      job_query: "CSI反馈 信道压缩 算法"
+      evidence_projects: [wireless_temporal_feedback_project, wireless_adaptive_compression_project, wireless_resource_allocation_project]
+      evidence_level: direct_research_overlap
+    - id: channel_prediction
+      product_area: "时变无线信道预测与链路自适应"
+      company_query: "无线通信 信道预测 链路仿真"
+      job_query: "信道预测 无线算法 MATLAB"
+      evidence_projects: [wireless_temporal_feedback_project]
+      evidence_level: direct_research_overlap
+    - id: feedback_budget
+      product_area: "无线反馈资源分配与轻量化算法"
+      company_query: "无线接入 反馈资源 算法"
+      job_query: "无线资源分配 算法仿真"
+      evidence_projects: [wireless_resource_allocation_project, wireless_adaptive_compression_project]
+      evidence_level: direct_research_overlap
+    - id: wireless_simulation
+      product_area: "通信设备或无线模组的链路级算法仿真"
+      company_query: "无线模组 通信系统 仿真"
+      job_query: "通信链路仿真 算法工程师"
+      evidence_projects: [wireless_temporal_feedback_project, wireless_resource_allocation_project]
+      evidence_level: direct_research_overlap
+    - id: beam_management
+      product_area: "MIMO 波束管理与信道处理"
+      company_query: "MIMO 波束管理 无线设备"
+      job_query: "MIMO 信道估计 波束算法"
+      evidence_projects: [wireless_temporal_feedback_project]
+      evidence_level: transfer_only
+    - id: satellite_phy
+      product_area: "卫星或专网终端的物理层算法"
+      company_query: "卫星通信 专网终端 物理层"
+      job_query: "卫星通信 物理层 算法仿真"
+      evidence_projects: [wireless_temporal_feedback_project]
+      evidence_level: transfer_only
+
+  medical_cv:
+    - id: ct_mri_segmentation
+      product_area: "CT/MRI 器官与结构自动分割"
+      company_query: "CT MRI 医学影像 分割"
+      job_query: "CT MRI 图像分割 算法"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: direct_research_overlap
+    - id: volume_segmentation
+      product_area: "三维医学影像分割模型"
+      company_query: "三维医学影像 分割 软件"
+      job_query: "3D医学影像 分割 PyTorch"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: direct_research_overlap
+    - id: imaging_workstation
+      product_area: "医学影像工作站中的分割分析模块"
+      company_query: "医学影像工作站 分割 后处理"
+      job_query: "医学图像处理 分割 算法"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: direct_research_overlap
+    - id: radiotherapy_contouring
+      product_area: "放疗计划中的自动勾画"
+      company_query: "放疗 自动勾画 医学影像"
+      job_query: "放疗 自动勾画 图像分割"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: transfer_only
+    - id: ultrasound_segmentation
+      product_area: "超声影像分割与定量分析"
+      company_query: "超声影像 分割 算法"
+      job_query: "超声 图像分割 算法实习"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: transfer_only
+    - id: industrial_segmentation
+      product_area: "小型设备公司的工业图像分割"
+      company_query: "工业视觉 图像分割 设备"
+      job_query: "工业视觉 图像分割 深度学习"
+      evidence_projects: [medical_cv_segmentation_project]
+      evidence_level: transfer_only

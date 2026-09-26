@@ -139,11 +139,41 @@ def deduplicate(records: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], di
                 if platform
             }
         )
+        discovery_methods = sorted({
+            method
+            for item in group
+            for method in (item.get("discovery_methods") or [item.get("discovery_method")])
+            if method
+        })
+        product_scenario_ids = sorted({
+            scenario_id
+            for item in group
+            for scenario_id in (item.get("product_scenario_ids") or [item.get("product_scenario_id")])
+            if scenario_id
+        })
+        search_queries = sorted({
+            query
+            for item in group
+            for query in (item.get("search_queries") or [item.get("search_query")])
+            if query
+        })
+        company_product_evidence_urls = sorted({
+            url
+            for item in group
+            for url in (item.get("company_product_evidence_urls") or [item.get("product_evidence_url")])
+            if url
+        })
+        company_size = next((item.get("company_size") for item in ordered if item.get("company_size")), None)
         canonical.update(
             {
                 "canonical_job_id": canonical_id,
                 "same_job_group_id": group_id,
                 "discovered_platforms": discovered_platforms,
+                "discovery_methods": discovery_methods,
+                "product_scenario_ids": product_scenario_ids,
+                "search_queries": search_queries,
+                "company_product_evidence_urls": company_product_evidence_urls,
+                "company_size": company_size,
                 "duplicate_platform_records": duplicate_platform_records,
                 "duplicate_count": len(duplicate_platform_records),
                 "canonical_source_platform": canonical.get("platform"),

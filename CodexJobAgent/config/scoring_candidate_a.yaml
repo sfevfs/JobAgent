@@ -1,0 +1,143 @@
+scoring:
+  dimensions:
+    common_technical_core:
+      weight: 25
+    track_domain_match:
+      weight: 25
+    project_evidence:
+      weight: 20
+    education_background_fit:
+      weight: 15
+    engineering_tools:
+      weight: 10
+    technical_role_relevance:
+      weight: 5
+  total: 100
+
+scores:
+  communication_score:
+    enabled: true
+  medical_cv_score:
+    enabled: true
+  general_ai_score:
+    enabled: true
+
+final_score_rule:
+  method: "best_relevant_track"
+  rules:
+    - "根据 JD 判断主要技术方向"
+    - "通信岗位优先使用 communication_score"
+    - "医学图像/CV岗位优先使用 medical_cv_score"
+    - "通用 AI 岗位优先使用 general_ai_score"
+    - "不得要求岗位同时匹配医学图像与通信"
+    - "不得简单平均三个 track 分数"
+    - "最终分数必须能够解释其主要来源"
+    - "Technical Match 只衡量技能、项目、专业背景和技术职责"
+    - "工作年限、博士-only、毕业届次、工作许可不得改变 Technical Match"
+    - "公司偏好和岗位偏好不得计入 Technical Match"
+
+grades:
+  S:
+    min: 85
+    max: 100
+    decision: selected
+  A:
+    min: 75
+    max: 84
+    decision: selected
+  B:
+    min: 65
+    max: 74
+    decision: selected
+  C:
+    min: 55
+    max: 64
+    decision: review
+  D:
+    min: 0
+    max: 54
+    decision: rejected
+
+hard_constraint_rule:
+  priority: highest
+  rules:
+    - "硬性资格冲突优先于评分"
+    - "明确要求博士且明确不接受硕士时 hard_reject"
+    - "明确要求多年全职经验且明确不接受应届生时 hard_reject"
+    - "如 C++、CUDA、TensorRT 等只是加分项，不得自动拒绝"
+    - "若软缺口成为 JD 核心必备条件，应降分并进入人工审核"
+    - "资格硬冲突只改变 eligibility、opportunity priority 和 decision，不回写 technical grade"
+
+soft_gap_policy:
+  skills:
+    - C++
+    - CUDA
+    - TensorRT
+    - ONNX
+    - Docker
+    - Linux server
+    - large_scale_distributed_training
+  handling:
+    bonus_only:
+      action: "do_not_reject"
+    preferred:
+      action: "small_penalty"
+    core_required:
+      action: "penalize_and_review"
+
+explanation_required: true
+
+explanation_fields:
+  - matched_requirements
+  - missing_requirements
+  - hard_constraints
+  - transferable_skills
+  - project_evidence
+  - track
+  - final_reason
+
+output_contract:
+  canonical_sections:
+    - technical_match
+    - eligibility
+    - preference_fit
+    - opportunity_priority
+    - decision
+    - final_reason
+  separation_rules:
+    - "technical_match.grade 不做 eligibility 调整"
+    - "eligibility 独立输出 eligible/uncertain/ineligible"
+    - "preference_fit 独立承载公司、岗位、C++ 和国企/研究院偏好"
+
+opportunity_priority:
+  P0:
+    - "technical grade 为 S/A"
+    - "eligibility 为 eligible"
+    - "主线或高价值 General AI"
+    - "无严重工程缺口"
+    - "公司和岗位偏好正常"
+  P1:
+    - "technical grade 为 A/B 且 eligibility 为 eligible"
+    - "或 technical grade 为 S/A 但存在轻度 soft gap"
+  P2:
+    - "技术可迁移但不是直接主线"
+    - "核心 C++ 较重"
+    - "国企/研究院但方向不够强"
+    - "工程栈与当前经历有明显距离"
+    - "eligibility 为 uncertain"
+  reject:
+    - "eligibility 为 ineligible"
+    - "技术基本无关"
+    - "存在安全或岗位内容 hard reject"
+
+preference_fit:
+  score_range:
+    min: 0
+    max: 100
+  company_normal: 80
+  state_owned_default: 55
+  state_owned_high_match_override: 80
+  role_P0: 90
+  role_P1_direct: 82
+  role_P1_transfer: 70
+  role_unclassified: 60

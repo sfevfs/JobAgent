@@ -1,6 +1,6 @@
 ---
 name: job-matcher
-description: Offline, evidence-grounded matching of public job descriptions against the user's confirmed private resume facts. Never apply, contact recruiters, edit platform profiles, or operate a phone.
+description: Offline, evidence-grounded matching of public job descriptions against the receiver's confirmed private resume facts. Never apply, contact recruiters, edit platform profiles, or operate a phone.
 ---
 
 # Job Matcher
@@ -36,3 +36,7 @@ This skill has no permission to open application controls, upload a resume, mess
 
 The built-in three-track classifier covers communication AI, medical/CV and general AI. For a different profession, recalibrate the classifier and create new synthetic validation fixtures before using scores for decisions.
 
+
+## Two-candidate update (2026-09-25)
+
+Select the candidate explicitly. `candidate_a` uses `job_matcher_candidate_a.py` with his verified facts and `scoring_candidate_a.yaml`; `candidate_b` keeps the baseline generic matcher. Use `run_candidate_pool.py` for batch discovery. The old `.local/` defaults above refer only to the legacy one-candidate workflow. Never compare or combine the two candidates' evidence or results.

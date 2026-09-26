@@ -1,0 +1,14 @@
+[
+  {
+    "candidate": "candidate_a",
+    "product_scenario_id": "ct_mri_segmentation",
+    "company": "Example Medical Imaging Co.",
+    "company_size": "unknown",
+    "product_evidence_source_type": "official_product_page",
+    "product_evidence_url": "https://example.com/products/medical-imaging-demo",
+    "product_evidence_summary": "Synthetic example only; replace with a publicly verifiable product page before local use.",
+    "observed_at": "2030-01-01",
+    "boss_company_query": "Example Medical Imaging Co.",
+    "synthetic": true
+  }
+]

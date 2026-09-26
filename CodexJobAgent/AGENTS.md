@@ -1,4 +1,11 @@
-# CodexJobAgent 仓库工作规则
+# 2026-09-25 双候选人找岗更新（优先条款）
+
+- 使用双候选人流程时，每次都明确 `candidate_a` 或 `candidate_b`，并运行 `scripts/run_candidate_pool.py --candidate ...`。旧版下文的单人 `.local/` 初始化协议仍适用于旧单人流程；双人流程使用 `.local/candidates/<id>/` 和 `config/portable_candidate_registry.yaml`。
+- 两人的事实、画像、资格、岗位结果、数据库和报告分别存放。没有指定候选人时不得匹配或操作手机。
+- Candidate A的产品路线仅用于找企业和岗位；保留原岗位名称路线。产品线索不是在招岗位，不授权投递。Candidate B不继承Candidate A的 CSI 项目或专用评分。
+- 此更新不授予新的手机、投递或消息发送权限。真实投递和沟通仍遵守下文的确认、安全与审计规则。
+
+# Codex 自动求职系统（可迁移模板）
 
 所有在本项目内工作的 Codex 代理、脚本和技能都必须遵守本文件。
 
@@ -21,7 +28,7 @@
 
 ## 事实与隐私
 
-1. 候选人事实的唯一来源是 `.local/resume_facts.yaml`。
+1. 旧单人流程的事实源是 `.local/resume_facts.yaml`；双候选人流程分别使用 `.local/candidates/candidate_a/resume_facts.yaml` 与 `.local/candidates/candidate_b/resume_facts.yaml`，不得混用。
 2. 所有缺失字段保持 `null`、`unknown` 或 `TODO`，不得虚构技能、实习、工作经历、项目成果、论文状态、证书或身份资格。
 3. `.local/`、`data/runtime/`、`reports/runtime/` 和 `logs/` 都是个人数据目录，不得复制进公开发布包或提交到版本控制。
 4. 不得发送或记录身份证、银行卡、验证码、密码、登录令牌、Cookie、API Key 等敏感信息。
@@ -47,7 +54,7 @@
 5. 用户复核并确认具体岗位后，才进入投递辅助；遇到登录或验证步骤立即交还用户。
 6. 动作完成后重新观察并写审计日志。
 
-## 适用范围限制
+## 可迁移性限制
 
 内置匹配器的三条默认技术轨道是 `communication_ai`、`medical_cv` 和 `general_ai`。若新用户的目标是金融、法务、设计、销售、制造等其他领域，Codex 必须先根据其简历重建轨道、关键词、权重与验证样例；不得直接沿用默认分数后开始投递。
 

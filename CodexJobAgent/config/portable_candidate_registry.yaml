@@ -1,0 +1,15 @@
+version: 1
+purpose: "多候选人便携求职工作流；运行时必须显式指定候选人。"
+candidates:
+  candidate_a:
+    display_name: "Candidate A"
+    facts: ".local/candidates/candidate_a/resume_facts.yaml"
+    profile: ".local/candidates/candidate_a/profile.yaml"
+    eligibility_policy: ".local/candidates/candidate_a/eligibility_policy.yaml"
+    onboarding_status: ".local/candidates/candidate_a/onboarding_status.yaml"
+  candidate_b:
+    display_name: "Candidate B"
+    facts: ".local/candidates/candidate_b/resume_facts.yaml"
+    profile: ".local/candidates/candidate_b/profile.yaml"
+    eligibility_policy: ".local/candidates/candidate_b/eligibility_policy.yaml"
+    onboarding_status: ".local/candidates/candidate_b/onboarding_status.yaml"
